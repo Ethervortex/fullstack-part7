@@ -1,12 +1,14 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Blog from './components/Blog'
+import SingleBlog from './components/SingleBlog'
 import LoginForm from './components/LoginForm'
 import CreateForm from './components/CreateForm'
 import Users from './components/Users'
 import User from './components/User'
 import Notif from './components/Notif'
 import Togglable from './components/Togglable'
+import Menu from './components/Menu' // Tehtävä 7.17
 import blogService from './services/blogs'
 import loginService from './services/login'
 import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
@@ -127,11 +129,9 @@ const App = () => {
 	return (
     <BrowserRouter>
 		<div>
+      <Menu name={user.name} handleLogout={handleLogout} />
 			<h2>Blogs</h2>
 			<Notif notification={notification} />
-			<p>
-				{user.name} logged in<button onClick={handleLogout}>logout</button>
-			</p>
 			<b></b>
       <Routes>
         <Route path="/users" element={<Users />} />
@@ -156,6 +156,11 @@ const App = () => {
             <User />
           </div>
         } />
+        <Route path="/blogs/:blogid" element={
+          <div>
+            <SingleBlog blogs={blogs} setBlogs={setBlogs} />
+          </div>
+        } />
       </Routes>
 		</div>
     </BrowserRouter>
@@ -163,3 +168,7 @@ const App = () => {
 }
 
 export default App
+/*
+<p>
+	{user.name} logged in<button onClick={handleLogout}>logout</button>
+</p> */
