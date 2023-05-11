@@ -1,15 +1,23 @@
 import userService from '../services/users'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Paper } from '@mui/material'
 
 const UserItem = ({ user }) => {
   return (
-    <li style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <>
+    <TableCell>
       <Link to={`/users/${user.id}`} style={{ width: '20%' }}>
         {user.name}
       </Link>
-      <div style={{ width: '80%' }}>{user.blogs.length}</div>
-    </li>
+    </TableCell>
+    <TableCell>{user.blogs.length}</TableCell>
+    </>
   )
 }
 
@@ -29,7 +37,28 @@ const Users = () => {
   return (
     <div>
       <h2>Users</h2>
-      <ul style={{ listStyle: 'none', padding: 0 }}>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableBody>
+            <TableRow>
+              <TableCell></TableCell>
+              <TableCell><b>blogs created</b></TableCell>
+            </TableRow>
+            {users.map(user => (
+              <TableRow key={user.id}>
+                <UserItem key={user.id} user={user} />
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
+  )
+}
+
+export default Users
+/*
+<ul style={{ listStyle: 'none', padding: 0 }}>
         <li style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold' }}>
           <div style={{ width: '20%' }}></div>
           <div style={{ width: '80%' }}>blogs created</div>
@@ -37,9 +66,4 @@ const Users = () => {
         {users.map(user => (
           <UserItem key={user.id} user={user} />
         ))}
-      </ul>
-    </div>
-  )
-}
-
-export default Users
+        */

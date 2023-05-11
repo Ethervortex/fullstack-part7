@@ -11,9 +11,11 @@ import Togglable from './components/Togglable'
 import Menu from './components/Menu' // Tehtävä 7.17
 import blogService from './services/blogs'
 import loginService from './services/login'
-import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import { createNotification } from './reducers/notifReducer' // Tehtävä 7.10
+
+import { Container } from '@mui/material' // Tehtävä 7.20
 
 const App = () => {
   const dispatch = useDispatch() // Tehtävä 7.10
@@ -127,6 +129,7 @@ const App = () => {
 		)
 	}
 	return (
+    <Container>
     <BrowserRouter>
 		<div>
       <Menu name={user.name} handleLogout={handleLogout} />
@@ -164,6 +167,7 @@ const App = () => {
       </Routes>
 		</div>
     </BrowserRouter>
+    </Container>
 	)
 }
 

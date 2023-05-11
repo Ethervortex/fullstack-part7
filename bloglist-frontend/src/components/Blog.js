@@ -1,5 +1,11 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom' // Tehtävä 7.16
+import { Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Paper } from '@mui/material'
 
 const Blog = ({ blog, handleLikes, handleRemove, user }) => {
 	const [visible, setVisible] = useState(false)
@@ -8,24 +14,33 @@ const Blog = ({ blog, handleLikes, handleRemove, user }) => {
 		setVisible(!visible)
 	}
 
+  /* Poistettu tehtävässä 7.20:
 	const blogStyle = {
 		paddingTop: 10,
 		paddingLeft: 2,
 		border: 'solid',
 		borderWidth: 1,
 		marginBottom: 5,
-	}
+	} */
 
 	return (
-		<div className="blog" style={blogStyle}>
-			<div>
-        <Link to={`/blogs/${blog.id}`}>
-					{blog.title} {blog.author}
-				</Link>{' '}
-				<button onClick={toggleVisibility}>{visible ? 'hide' : 'view'}</button>
-			</div>
-			{visible && (
-				<div>
+		<div>
+			<TableContainer component={Paper}>
+        <Table>
+          <TableBody>
+            <TableRow>
+              <TableCell style={{ width: '50%' }}>
+                <Link to={`/blogs/${blog.id}`}>
+					        {blog.title} {blog.author}
+				        </Link>{' '}
+              </TableCell>
+            <TableCell>
+				      <button onClick={toggleVisibility}>{visible ? 'hide' : 'view'}</button>
+            </TableCell>
+          </TableRow> 
+			  {visible && (
+				<TableRow>
+          <TableCell colSpan={2}>
 					<div>{blog.url}</div>
 					<div>
 						likes {blog.likes}{' '}
@@ -48,10 +63,15 @@ const Blog = ({ blog, handleLikes, handleRemove, user }) => {
 							</button>
 						)}
 					</div>
-				</div>
+          </TableCell>
+				</TableRow>
 			)}
-		</div>
+      </TableBody>
+      </Table>
+      </TableContainer>
+    </div>
 	)
 }
 
 export default Blog
+// <div className="blog" style={blogStyle}>
